@@ -4,9 +4,9 @@ const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
-const renderCountry = function (data) {
+const renderCountry = function (data, className = ' ') {
   const html = `
-    <article class="country">
+    <article class="country ${className}">
         <img class="country__img" src="${data.flags.png}" />
         <div class="country__data">
             <h3 class="country__name">${data.name.common}</h3>
@@ -14,8 +14,12 @@ const renderCountry = function (data) {
             <p class="country__row"><span>👫</span>${(
               data.population / 1000000
             ).toFixed(2)}M people</p>
-            <p class="country__row"><span>🗣️</span>${data.languages.eng}</p>
-            <p class="country__row"><span>💰</span>${data.currencies.name}</p>
+            <p class="country__row"><span>🗣️</span>${
+              Object.values(data.languages)[0]
+            }</p>
+            <p class="country__row"><span>💰</span>${
+              Object.values(data.currencies)[0].name
+            }</p>
         </div>
     </article>
   `;
@@ -31,8 +35,31 @@ const getCountryData = function (country) {
     const [data] = JSON.parse(this.responseText);
     console.log(data);
 
+    // render country 1
     renderCountry(data);
+
+    // get neighbour country 2
+    const [...neighbours] = data.borders;
+    console.log(neighbours);
+
+    if (neighbours.lenght === 0) return;
+
+    // AJAX call country 2
+
+    neighbours.forEach(neighbour => {
+      const request2 = new XMLHttpRequest();
+      request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
+      request2.send();
+      request2.addEventListener('load', function () {
+        const [data2] = JSON.parse(this.responseText);
+
+        console.log(this.responseText);
+
+        // render neighbours
+        renderCountry(data2, 'neighbour');
+      });
+    });
   });
 };
 
-getCountryData('Nigeria');
+getCountryData('nigeria');
