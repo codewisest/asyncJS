@@ -40,7 +40,6 @@ const getCountryData = function (country) {
 
     // get neighbour country 2
     const [...neighbours] = data.borders;
-    console.log(neighbours);
 
     if (neighbours.lenght === 0) return;
 
@@ -53,8 +52,6 @@ const getCountryData = function (country) {
       request2.addEventListener('load', function () {
         const [data2] = JSON.parse(this.responseText);
 
-        console.log(this.responseText);
-
         // render neighbours
         renderCountry(data2, 'neighbour');
       });
@@ -63,3 +60,12 @@ const getCountryData = function (country) {
 };
 
 getCountryData('nigeria');
+
+// using promise
+const getCountryDataP = function (country) {
+  const requestP = fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(response => response.json())
+    .then(data => renderCountry(data[0]));
+};
+
+getCountryDataP('Nigeria');
