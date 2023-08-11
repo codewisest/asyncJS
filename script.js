@@ -52,6 +52,7 @@ const getCountryData = function (country) {
       request2.addEventListener('load', function () {
         const [data2] = JSON.parse(this.responseText);
 
+        console.log(data2);
         // render neighbours
         renderCountry(data2, 'neighbour');
       });
@@ -59,13 +60,31 @@ const getCountryData = function (country) {
   });
 };
 
-getCountryData('nigeria');
+// getCountryData('nigeria');
 
 // using promise
 const getCountryDataP = function (country) {
   const requestP = fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then(response => response.json())
-    .then(data => renderCountry(data[0]));
+    .then(data => {
+      renderCountry(data[0]);
+      // get neighbour countries promise
+      const [...neighboursP] = data[0].borders;
+
+      if (neighboursP.length === 0) return;
+
+      // country 2 promise
+      const neighbourPromises = neighboursP.map(neighbourP => {
+        return fetch(`https://restcountries.com/v3.1/alpha/${neighbourP}`).then(
+          response => response.json()
+        );
+      });
+      Promise.all(neighbourPromises).then(dataItems => {
+        dataItems.forEach(dataItem => {
+          renderCountry(dataItem[0], 'neighbour');
+        });
+      });
+    });
 };
 
 getCountryDataP('Nigeria');
