@@ -84,7 +84,10 @@ const getCountryDataP = function (country) {
           renderCountry(dataItem[0], 'neighbour');
         });
       });
-    });
+    })
+    .catch(err => alert(err));
 };
 
-getCountryDataP('Nigeria');
+btn.addEventListener('click', function () {
+  getCountryDataP('Nigeria');
+});
