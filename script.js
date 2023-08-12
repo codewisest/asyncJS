@@ -66,13 +66,19 @@ const getCountryData = function (country) {
 // getCountryData('nigeria');
 
 // using promise
+const getJson = function (url) {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(`Country not found ${response.status}`);
+    return response.json();
+  });
+};
 const getCountryDataP = function (country) {
-  const requestP = fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => {
-      console.log(response);
-      if (!response.ok) throw new Error(`Country not found ${response.status}`);
-      return response.json();
-    })
+  // fetch(`https://restcountries.com/v3.1/name/${country}`)
+  //   .then(response => {
+  //     if (!response.ok) throw new Error(`Country not found ${response.status}`);
+  //     return response.json();
+  //   })
+  getJson(`https://restcountries.com/v3.1/name/${country}`)
     .then(data => {
       renderCountry(data[0]);
       // get neighbour countries promise
@@ -82,15 +88,26 @@ const getCountryDataP = function (country) {
 
       // country 2 promise
       const neighbourPromises = neighboursP.map(neighbourP => {
-        return fetch(`https://restcountries.com/v3.1/alpha/${neighbourP}`).then(
-          response => response.json()
-        );
+        // return fetch(`https://restcountries.com/v3.1/alpha/${neighbourP}`).then(
+        //   response => {
+        //     if (!response.ok)
+        //       throw new Error(`Country not found ${response.status}`);
+
+        //     return response.json();
+        //   }
+        // );
+        return getJson(`https://restcountries.com/v3.1/alpha/${neighbourP}`);
       });
-      Promise.all(neighbourPromises).then(dataItems => {
-        dataItems.forEach(dataItem => {
-          renderCountry(dataItem[0], 'neighbour');
+      Promise.all(neighbourPromises)
+        .then(dataItems => {
+          dataItems.forEach(dataItem => {
+            renderCountry(dataItem[0], 'neighbour');
+          });
+        })
+        .catch(err => {
+          console.error(`${err}`);
+          renderError(`Something went wrong ${err.message}. Please try again.`);
         });
-      });
     })
     .catch(err => {
       console.error(`${err}`);
@@ -102,5 +119,5 @@ const getCountryDataP = function (country) {
 };
 
 btn.addEventListener('click', function () {
-  getCountryDataP('Nigeia');
+  getCountryDataP('Nigeria');
 });
