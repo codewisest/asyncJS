@@ -81,10 +81,11 @@ const getCountryDataP = function (country) {
   getJson(`https://restcountries.com/v3.1/name/${country}`)
     .then(data => {
       renderCountry(data[0]);
+      if (!data[0].borders) throw new Error('No neighbours found');
       // get neighbour countries promise
       const [...neighboursP] = data[0].borders;
 
-      if (neighboursP.length === 0) return;
+      // if (neighboursP.length === 0) return;
 
       // country 2 promise
       const neighbourPromises = neighboursP.map(neighbourP => {
@@ -110,7 +111,6 @@ const getCountryDataP = function (country) {
         });
     })
     .catch(err => {
-      console.error(`${err}`);
       renderError(`Something went wrong ${err.message}. Please try again.`);
     })
     .finally(() => {
@@ -119,5 +119,5 @@ const getCountryDataP = function (country) {
 };
 
 btn.addEventListener('click', function () {
-  getCountryDataP('Nigeria');
+  getCountryDataP('nigeria');
 });
