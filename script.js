@@ -3,6 +3,10 @@
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+};
+
 ///////////////////////////////////////
 const renderCountry = function (data, className = ' ') {
   const html = `
@@ -24,7 +28,6 @@ const renderCountry = function (data, className = ' ') {
     </article>
   `;
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
 };
 
 const getCountryData = function (country) {
@@ -85,7 +88,13 @@ const getCountryDataP = function (country) {
         });
       });
     })
-    .catch(err => alert(err));
+    .catch(err => {
+      console.error(`${err}`);
+      renderError(`Something went wrong ${err.message}. Please try again.`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
 };
 
 btn.addEventListener('click', function () {
