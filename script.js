@@ -68,7 +68,11 @@ const getCountryData = function (country) {
 // using promise
 const getCountryDataP = function (country) {
   const requestP = fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+      if (!response.ok) throw new Error(`Country not found ${response.status}`);
+      return response.json();
+    })
     .then(data => {
       renderCountry(data[0]);
       // get neighbour countries promise
@@ -98,5 +102,5 @@ const getCountryDataP = function (country) {
 };
 
 btn.addEventListener('click', function () {
-  getCountryDataP('Nigeria');
+  getCountryDataP('Nigeia');
 });
