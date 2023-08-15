@@ -60,11 +60,6 @@ const getJson = function (url) {
 };
 
 const getCountryDataP = function (country) {
-  // fetch(`https://restcountries.com/v3.1/name/${country}`)
-  //   .then(response => {
-  //     if (!response.ok) throw new Error(`Country not found ${response.status}`);
-  //     return response.json();
-  //   })
   getJson(`https://restcountries.com/v3.1/name/${country}`)
     .then(data => {
       renderCountry(data[0]);
@@ -72,18 +67,8 @@ const getCountryDataP = function (country) {
       // get neighbour countries promise
       const [...neighboursP] = data[0].borders;
 
-      // if (neighboursP.length === 0) return;
-
       // country 2 promise
       const neighbourPromises = neighboursP.map(neighbourP => {
-        // return fetch(`https://restcountries.com/v3.1/alpha/${neighbourP}`).then(
-        //   response => {
-        //     if (!response.ok)
-        //       throw new Error(`Country not found ${response.status}`);
-
-        //     return response.json();
-        //   }
-        // );
         return getJson(`https://restcountries.com/v3.1/alpha/${neighbourP}`);
       });
       Promise.all(neighbourPromises)
@@ -106,5 +91,7 @@ const getCountryDataP = function (country) {
 };
 
 btn.addEventListener('click', function () {
+  whereAmI(4.54308, 7.2443);
+  whereAmI(4.54308, 7.2443);
   whereAmI(4.54308, 7.2443);
 });
