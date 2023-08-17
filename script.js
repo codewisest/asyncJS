@@ -121,3 +121,13 @@ const getCountryDataP = function (country) {
 btn.addEventListener('click', function () {
   getCountryDataP('nigeria');
 });
+
+const lotteryPromise = new Promise(function (resolve, reject) {
+  if (Math.random() >= 0.5) {
+    resolve('You win!!!');
+  } else {
+    reject('You lose!!!');
+  }
+});
+
+lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
