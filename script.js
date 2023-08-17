@@ -149,3 +149,41 @@ wait(2)
   .then(() => {
     console.log('I waited for 1 second');
   });
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(
+      position => resolve(position),
+      err => reject(err)
+    );
+  });
+};
+
+getPosition().then(pos => console.log(pos));
+
+const whereAmI = function () {
+  getPosition()
+    .then(pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+      return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    })
+    .then(response => {
+      if (!response.ok) throw new Error(`Too fast ${response.status}`);
+      console.log(response);
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      console.log(data.statename);
+      console.log(`You are in ${data.state}, ${data.country}`);
+      return data.country;
+    })
+    .then(country => {
+      getCountryDataP(country);
+    })
+    .catch(err => {
+      console.log(`Something went wrong ${err.message}. Please try again`);
+    });
+};
+
+btn.addEventListener('click', whereAmI);
