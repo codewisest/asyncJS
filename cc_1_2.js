@@ -95,3 +95,54 @@ btn.addEventListener('click', function () {
   whereAmI(4.54308, 7.2443);
   whereAmI(4.54308, 7.2443);
 });
+
+// coding challenge 2
+const imageHolder = document.querySelector('.images');
+let imgElement;
+const createImage = function (imgPath) {
+  return new Promise(function (resolve, reject) {
+    const newImage = document.createElement('img');
+    newImage.src = imgPath;
+
+    newImage.addEventListener('load', function () {
+      resolve(newImage);
+      reject(new Error());
+    });
+  });
+};
+
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+createImage('./img/img-1.jpg')
+  .then(myImage => {
+    imageHolder.insertAdjacentElement('beforeend', myImage);
+    imgElement = myImage;
+    // return myImage;
+  })
+  .then(() => {
+    return wait(2);
+    // return myImage;
+  })
+  .then(() => {
+    imgElement.style.display = 'none';
+    return imgElement;
+  })
+  .then(() => {
+    return wait(2);
+  })
+  .then(() => {
+    imgElement.src = './img/img-2.jpg';
+    imgElement.style.display = 'block';
+  })
+  .then(() => {
+    return wait(2);
+  })
+  .then(() => {
+    imgElement.style.display = 'none';
+    return imgElement;
+  })
+  .catch(err => console.log(`Something went wrong ${err.message}`));
