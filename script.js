@@ -28,6 +28,7 @@ const renderCountry = function (data, className = ' ') {
     </article>
   `;
   countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
 };
 
 const getCountryData = function (country) {
@@ -187,3 +188,23 @@ const whereAmI = function () {
 };
 
 btn.addEventListener('click', whereAmI);
+
+const whereAreYou = async function (country) {
+  const pos = await getPosition();
+  const { latitude: lat, longitude: lng } = pos.coords;
+
+  const geoRes = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+  const geoData = await geoRes.json();
+  console.log(geoData);
+  const res = await fetch(
+    `https://restcountries.com/v3.1/name/${geoData.country}`
+  );
+
+  const data = await res.json();
+  renderCountry(data[0]);
+
+  console.log(data[0]);
+};
+
+whereAreYou();
+console.log('FIRST');

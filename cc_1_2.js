@@ -117,7 +117,7 @@ const wait = function (seconds) {
   });
 };
 
-createImage('./img/img-1.jpg')
+createImage('./img/im-1.jpg')
   .then(myImage => {
     imageHolder.insertAdjacentElement('beforeend', myImage);
     imgElement = myImage;
