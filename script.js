@@ -189,22 +189,44 @@ const whereAmI = function () {
 
 btn.addEventListener('click', whereAmI);
 
-const whereAreYou = async function (country) {
-  const pos = await getPosition();
-  const { latitude: lat, longitude: lng } = pos.coords;
+const whereAreYou = async function () {
+  try {
+    const pos = await getPosition();
+    const { latitude: lat, longitude: lng } = pos.coords;
 
-  const geoRes = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
-  const geoData = await geoRes.json();
-  console.log(geoData);
-  const res = await fetch(
-    `https://restcountries.com/v3.1/name/${geoData.country}`
-  );
+    const geoRes = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+    if (!geoRes.ok) throw new Error('Problem gettin location info');
+    const geoData = await geoRes.json();
 
-  const data = await res.json();
-  renderCountry(data[0]);
+    const res = await fetch(
+      `https://restcountries.com/v3.1/name/${geoData.country}`
+    );
 
-  console.log(data[0]);
+    if (!res.ok) throw new Error('Problem gettin country');
+
+    const data = await res.json();
+    renderCountry(data[0]);
+
+    return `You are in ${geoData.city}, ${geoData.country}`;
+  } catch (error) {
+    // console.error(error);
+    renderError(`something went wrong ${error}`);
+  }
 };
 
-whereAreYou();
+console.log('will get location');
+// const city = whereAreYou();
+// console.log(city);
+
+(async function () {
+  try {
+    const city = await whereAreYou();
+    console.log(city);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log('finished getting location');
+  }
+})();
+
 console.log('FIRST');
