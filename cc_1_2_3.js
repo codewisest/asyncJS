@@ -117,7 +117,7 @@ const wait = function (seconds) {
   });
 };
 
-createImage('./img/im-1.jpg')
+createImage('./img/mg-1.jpg')
   .then(myImage => {
     imageHolder.insertAdjacentElement('beforeend', myImage);
     imgElement = myImage;
@@ -146,3 +146,21 @@ createImage('./img/im-1.jpg')
     return imgElement;
   })
   .catch(err => console.log(`Something went wrong ${err.message}`));
+
+// coding challenge 3
+const loadNPause = async function (imgPath) {
+  try {
+    const myImage = await createImage('./img/img-1.jpg');
+    imageHolder.insertAdjacentElement('beforeend', myImage);
+
+    await wait(2);
+    myImage.style.display = 'none';
+    await wait(2);
+    myImage.src = './img/img-2.jpg';
+    myImage.style.display = 'block';
+    await wait(2);
+    myImage.style.display = 'none';
+  } catch (error) {}
+};
+
+loadNPause();
