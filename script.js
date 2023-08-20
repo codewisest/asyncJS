@@ -230,3 +230,37 @@ console.log('will get location');
 })();
 
 console.log('FIRST');
+
+const getThreeCountries = async function (
+  firstCountry,
+  secondCountry,
+  thirdCountry
+) {
+  try {
+    const [firstCountryData] = await getJson(
+      `https://restcountries.com/v3.1/name/${firstCountry}`
+    );
+    // const [secondCountryData] = await getJson(
+    //   `https://restcountries.com/v3.1/name/${secondCountry}`
+    // );
+    // const [thirdCountryData] = await getJson(
+    //   `https://restcountries.com/v3.1/name/${thirdCountry}`
+    // );
+
+    // console.log(
+    //   firstCountryData.capital,
+    //   secondCountryData.capital,
+    //   thirdCountryData.capital
+    // );
+    const data = await Promise.all([
+      getJson(`https://restcountries.com/v3.1/name/${firstCountry}`),
+      getJson(`https://restcountries.com/v3.1/name/${secondCountry}`),
+      getJson(`https://restcountries.com/v3.1/name/${thirdCountry}`),
+    ]);
+    console.log(data.map(d => d[0].capital));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+getThreeCountries('nigeria', 'israel', 'canada');
