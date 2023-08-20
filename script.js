@@ -273,3 +273,18 @@ getThreeCountries('nigeria', 'israel', 'canada');
   ]);
   console.log(res[0]);
 })();
+
+const timeout = function (sec) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error('Request took too long!'));
+    }, sec * 1000);
+  });
+};
+
+Promise.race([
+  getJson(`https://restcountries.com/v3.1/name/nigeria`),
+  timeout(0.01),
+])
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
