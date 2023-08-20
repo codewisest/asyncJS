@@ -264,3 +264,12 @@ const getThreeCountries = async function (
 };
 
 getThreeCountries('nigeria', 'israel', 'canada');
+
+(async function () {
+  const res = await Promise.race([
+    getJson(`https://restcountries.com/v3.1/name/nigeria`),
+    getJson(`https://restcountries.com/v3.1/name/israel`),
+    getJson(`https://restcountries.com/v3.1/name/canada`),
+  ]);
+  console.log(res[0]);
+})();
