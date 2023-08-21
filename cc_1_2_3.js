@@ -148,7 +148,7 @@ createImage('./img/mg-1.jpg')
   .catch(err => console.log(`Something went wrong ${err.message}`));
 
 // coding challenge 3
-const loadNPause = async function (imgPath) {
+const loadNPause = async function () {
   try {
     const myImage = await createImage('./img/img-1.jpg');
     imageHolder.insertAdjacentElement('beforeend', myImage);
@@ -163,4 +163,19 @@ const loadNPause = async function (imgPath) {
   } catch (error) {}
 };
 
+loadNPause();
+
+const loadAll = async function (imgArr) {
+  console.log(imgArr);
+  const imgs = await Promise.all(
+    imgArr.map(img => {
+      return createImage(img);
+    })
+  );
+  console.log(imgs);
+  Promise.all(imgs);
+  imgs.forEach(img => img.classList.add('parallel'));
+};
+
+loadAll(['./img/img-1.jpg', './img/img-2.jpg', './img/img-3.jpg']);
 loadNPause();
