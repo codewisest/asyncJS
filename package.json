@@ -1,0 +1,22 @@
+{
+  "name": "asyncjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codewisest/asyncJS.git"
+  },
+  "author": "chijioke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codewisest/asyncJS/issues"
+  },
+  "homepage": "https://github.com/codewisest/asyncJS#readme",
+  "dependencies": {
+    "leaflet": "^1.9.4"
+  }
+}
