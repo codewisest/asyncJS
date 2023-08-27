@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"lmKb7":[function(require,module,exports) {
+})({"fTUxG":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "26170a8763aff760";
+module.bundle.HMR_BUNDLE_ID = "49855b3116cbf8ff";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -573,7 +573,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
     });
 }
 
-},{}],"adjPd":[function(require,module,exports) {
+},{}],"4nGeQ":[function(require,module,exports) {
 // importing module
 // import { addToCart, totalPrice as price, tq } from './shoppingCart.js';
 // addToCart('bread', 20);
@@ -581,7 +581,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _shoppingCartJs = require("./shoppingCart.js");
 var _shoppingCartJsDefault = parcelHelpers.interopDefault(_shoppingCartJs);
-var _cloneDeepJs = require("./node_modules/lodash-es/cloneDeep.js");
+var _cloneDeepJs = require("lodash-es/cloneDeep.js");
 var _cloneDeepJsDefault = parcelHelpers.interopDefault(_cloneDeepJs);
 console.log("importing module");
 _shoppingCartJs.addToCart("bread", 20);
@@ -634,7 +634,7 @@ console.log(stateClone);
 console.log(stateDeepClone);
 if (module.hot) module.hot.accept();
 
-},{"./shoppingCart.js":"l6bJl","./node_modules/lodash-es/cloneDeep.js":"dd5At","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l6bJl":[function(require,module,exports) {
+},{"./shoppingCart.js":"l6bJl","lodash-es/cloneDeep.js":"dd5At","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l6bJl":[function(require,module,exports) {
 // exporting module
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -3194,6 +3194,6 @@ var _isObjectLikeJsDefault = parcelHelpers.interopDefault(_isObjectLikeJs);
 }
 exports.default = baseIsSet;
 
-},{"./_getTag.js":"1kCom","./isObjectLike.js":"iad76","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["lmKb7","adjPd"], "adjPd", "parcelRequiread14")
+},{"./_getTag.js":"1kCom","./isObjectLike.js":"iad76","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["fTUxG","4nGeQ"], "4nGeQ", "parcelRequiread14")
 
-//# sourceMappingURL=index.63aff760.js.map
+//# sourceMappingURL=index.16cbf8ff.js.map

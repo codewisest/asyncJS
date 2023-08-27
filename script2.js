@@ -38,7 +38,7 @@ ShoppingCart2.addToCart('akara', 20);
 
 console.log(ShoppingCart2.totalPrice);
 
-import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+import cloneDeep from 'lodash-es/cloneDeep.js';
 
 const state = {
   cart: [
