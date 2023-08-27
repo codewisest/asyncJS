@@ -632,6 +632,7 @@ const stateDeepClone = (0, _cloneDeepJsDefault.default)(state);
 state.user.loggedIn = false;
 console.log(stateClone);
 console.log(stateDeepClone);
+if (module.hot) module.hot.accept();
 
 },{"./shoppingCart.js":"l6bJl","./node_modules/lodash-es/cloneDeep.js":"dd5At","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l6bJl":[function(require,module,exports) {
 // exporting module
